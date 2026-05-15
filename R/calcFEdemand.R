@@ -3,6 +3,8 @@
 #' @author Falk Benke, Robin Hasse
 calcFEdemand <- function(scenario) {
 
+  scenarioIndustry <- setdiff(scenario, "SSP2_GP")
+
   feBuildings <- calcOutput("FeDemandBuildings",
                             subtype = "FE",
                             scenario = scenario,
@@ -10,9 +12,16 @@ calcFEdemand <- function(scenario) {
                             aggregate = FALSE)
 
   feIndustry <- calcOutput("FeDemandIndustry",
-                           scenarios = scenario,
+                           scenarios = scenarioIndustry,
                            warnNA = FALSE,
                            aggregate = FALSE)
+
+
+  # Copy SSP2 to good performance scenario for industry FE demand
+  feIndustry <- mbind(
+    feIndustry,
+    setItems(feIndustry[, , "SSP2"], 3.1, "SSP2_GP")
+  )
 
   t <- intersect(getYears(feBuildings), getYears(feIndustry))
 
