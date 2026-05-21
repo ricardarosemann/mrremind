@@ -19,7 +19,7 @@ calcFEdemand <- function(scenario) {
 
   # Copy SSP2 to good performance scenario for industry FE demand
   feIndustry <- mbind(
-    feIndustry,
+    feIndustry[, , "SSP2", invert = TRUE],
     setItems(feIndustry[, , "SSP2"], 3.1, "SSP2_GP")
   )
 

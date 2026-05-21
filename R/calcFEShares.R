@@ -12,9 +12,9 @@ calcFEShares <- function(subtype, scenario) {
 
   edge_buildings <- calcOutput("IOEdgeBuildings", subtype = "output_EDGE_buildings", aggregate = FALSE)
   output <- calcOutput("IO", subtype = "output", corrected = TRUE, aggregate = FALSE)
-  # Get FEdemand data for 2005 (equal across scenarios, so just pick SSP2).
+  # Get FEdemand data for 2005 (equal across scenarios, so just pick SSP2_GP).
   ## Keep scenario selection as is (this optimizes madrat cache usage).
-  fe_demand <- calcOutput("FEdemand", scenario = scenario, aggregate = FALSE)[, 2005, "SSP2"] %>% collapseNames()
+  fe_demand <- calcOutput("FEdemand", scenario = scenario, aggregate = FALSE)[, 2005, "SSP2_GP"] %>% collapseNames()
 
   if (subtype == "ind_coal") {
     share <- 1 - dimSums(edge_buildings[, 2005, "coal"]) / output[, 2005, "pecoal.sesofos.coaltr"]

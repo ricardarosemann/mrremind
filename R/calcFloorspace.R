@@ -13,6 +13,7 @@ calcFloorspace <- function(scenario, onlyTotal = FALSE) {
 
   ## Replace any calls to scenario groups such as "SSPs" and "SSP2IndiaDEAs", to calls of the individual scenarios.
   scenario <- mrdrivers::toolReplaceShortcuts(scenario) %>% unique()
+  scenario <- setdiff(scenario, "SSP2")
 
   data <- readSource("EdgeBuildings", subtype = "Floorspace", subset = scenario)
 
